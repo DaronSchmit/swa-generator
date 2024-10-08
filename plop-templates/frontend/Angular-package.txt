@@ -1,0 +1,19 @@
+{
+  "name": "{{{trim projectName}}}",
+  "version": "1.0.0",
+  "description": "a template angular spa",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "setup": "npm init @angular@latest {{{trim projectName}}}"
+  },
+  "keywords": [
+    "angular",
+    "spa"
+  ],
+  "author": "{{{name}}}",
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/cli": "^18.2.7"
+  }
+}

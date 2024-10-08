@@ -1,0 +1,32 @@
+{
+  "name": "swa-generator",
+  "version": "1.0.0",
+  "description": "a generator for static web applications hosted in azure",
+  "main": "plopfile.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "plop": "cross-env NODE_OPTIONS='--import tsx' plop --plopfile=plopfile.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaronSchmit/swa-generator.git"
+  },
+  "keywords": [
+    "plop",
+    "swa",
+    "generator",
+    "azure"
+  ],
+  "author": "Daron Schmit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DaronSchmit/swa-generator/issues"
+  },
+  "homepage": "https://github.com/DaronSchmit/swa-generator#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "plop": "^4.0.1",
+    "tsx": "^4.19.1"
+  }
+}

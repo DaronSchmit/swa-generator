@@ -1,0 +1,13 @@
+{
+  "name": "{{{trim projectName}}}",
+  "version": "1.0.0",
+  "description": "a template react spa",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "setup": "npm create vite@latest"
+  },
+  "keywords": ["react", "spa"],
+  "author": "{{{name}}}",
+  "license": "MIT"
+}
