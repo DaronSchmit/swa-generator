@@ -1,4 +1,5 @@
-import { NodePlopAPI } from 'plop';
+import { ActionType, NodePlopAPI } from 'plop';
+import { buildActionsArray, DeploymentSolution, FrontendLibrary, RepoHost } from './definitions';
 
 export default function (plop: NodePlopAPI) {
   plop.setHelper('trim', (txt) => txt.trim());
@@ -16,34 +17,45 @@ export default function (plop: NodePlopAPI) {
         name: 'projectAuthor',
         message: 'project author please',
       },
-      // {
-      //   type: 'list',
-      //   name: 'repoHost',
-      //   message: 'Where are you hosting your repo?',
-      //   choices: ['Github', 'Azure Repos'],
-      // },
+      {
+        type: 'list',
+        name: 'repoHost',
+        message: 'Where are you hosting your repo?',
+        choices: Object.values(RepoHost),
+      },
+      {
+        when(context) {
+          return context.repoHost === RepoHost.github;
+        },
+        type: 'list',
+        name: 'deploymentSolution',
+        message: 'What service are you using to deploy the site?',
+        choices: Object.values(DeploymentSolution),
+      },
+      {
+        when(context) {
+          return context.repoHost === RepoHost.azureRepos;
+        },
+        type: 'list',
+        name: 'deploymentSolution',
+        message: 'What service are you using to deploy the site?',
+        choices: Object.values(DeploymentSolution).filter((s) => s !== DeploymentSolution.githubPages),
+      },
       {
         type: 'list',
         name: 'frontendLibrary',
         message: 'What frontend library are you using?',
-        choices: ['Angular', 'Other'],
+        choices: Object.values(FrontendLibrary),
       },
     ],
     actions: (data) => {
-      const root = `../${data?.projectName}`;
-      const arr = [
-        {
-          type: 'add',
-          path: `${root}/configuration.yaml`,
-          templateFile: 'plop-templates/configuration.yaml',
-        },
-        {
-          type: 'add',
-          path: `${root}/package.json`,
-          templateFile: 'plop-templates/frontend/{{frontendLibrary}}-package.txt',
-        },
-      ];
-
+      if (!data) {
+        return [];
+      }
+      const library: FrontendLibrary = data.frontendLibrary;
+      const repoHost: RepoHost = data.repoHost;
+      const deploymentSolution: DeploymentSolution = data.deploymentSolution;
+      const arr: ActionType[] = buildActionsArray(data.projectName, library, repoHost, deploymentSolution);
       return arr;
     },
   });
